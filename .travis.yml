@@ -1,0 +1,129 @@
+language: c
+
+branches:
+    only:
+        - add_travisci
+        
+# Use _CC and _CXX environment variables because Travis overrides CC and CXX
+# https://travis-ci.community/t/unset-cc-and-cxx-environment-variables-when-compiler-is-set-to-msvc/1430/2
+
+matrix:
+    include:
+        # Windows x86 build (MSVC)
+        - os: windows
+          env:  GENERATOR="Visual Studio 15 2017" ARCH=Win32
+        # Windows x64 build (MSVC)
+        - os: windows
+          env: GENERATOR="Visual Studio 15 2017" ARCH=x64
+        # Windows ARM build (MSVC)  TODO: Fix unresolved external symbol _lh_longjmp
+        - os: windows
+          env: GENERATOR="Visual Studio 15 2017" ARCH=ARM
+        # Windows ARM64 build (MSVC)  TODO: Fix unresolved external symbol _lh_longjmp
+        - os: windows
+          env: GENERATOR="Visual Studio 15 2017" ARCH=ARM64
+        # Linux x64 builds (GCC)
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-4.9, g++-4.9] } }
+          env: _CC=gcc-4.9 _CXX=g++-4.9 ARCH=64
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-5, g++-5] } }
+          env: _CC=gcc-5 _CXX=g++-5 ARCH=64
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-6, g++-6] } }
+          env: _CC=gcc-6 _CXX=g++-6 ARCH=64
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-7, g++-7] } }
+          env: _CC=gcc-7 _CXX=g++-7 ARCH=64
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-8, g++-8] } }
+          env: _CC=gcc-8 _CXX=g++-8 ARCH=64
+        # Linux x86 builds (GCC)
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-4.9, g++-4.9, gcc-multilib, g++-multilib, gcc-4.9-multilib, g++-4.9-multilib, linux-libc-dev] } }
+          env: _CC=gcc-4.9 _CXX=g++-4.9 ARCH=32
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-5, g++-5, gcc-multilib, g++-multilib, gcc-5-multilib, g++-5-multilib, linux-libc-dev] } }
+          env: _CC=gcc-5 _CXX=g++-5 ARCH=32
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-6, g++-6, gcc-multilib, g++-multilib, gcc-6-multilib, g++-6-multilib, linux-libc-dev] } }
+          env: _CC=gcc-6 _CXX=g++-6 ARCH=32
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-7, g++-7, gcc-multilib, g++-multilib, gcc-7-multilib, g++-7-multilib, linux-libc-dev] } }
+          env: _CC=gcc-7 _CXX=g++-7 ARCH=32
+        - os: linux
+          addons: { apt: { sources: ubuntu-toolchain-r-test, packages: [gcc-8, g++-8, gcc-multilib, g++-multilib, gcc-8-multilib, g++-8-multilib, linux-libc-dev] } }
+          env: _CC=gcc-8 _CXX=g++-8 ARCH=32
+        # Linux x64 builds (Clang)
+        - os: linux
+          addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-3.9], packages: [clang-3.9, libc++-dev] } }
+          env: _CC=clang-3.9 _CXX=clang++-3.9
+        - os: linux
+          addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-4.0], packages: [clang-4.0, libc++-dev] } }
+          env: _CC=clang-4.0 _CXX=clang++-4.0
+        - os: linux
+          addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-5.0], packages: [clang-5.0, libc++-dev] } }
+          env: _CC=clang-5.0 _CXX=clang++-5.0
+        - os: linux
+          addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-6.0], packages: [clang-6.0, libc++-dev] } }
+          env: _CC=clang-6.0 _CXX=clang++-6.0
+        - os: linux
+          addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-7], packages: [clang-7.0, libc++-dev] } }
+          env: _CC=clang-7.0 _CXX=clang++-7.0
+        # macOS builds (GCC) TODO: Fix 'malloc.h' file not found
+        - os: osx
+          osx_image: xcode8.3
+          env: COMPILER_FORMULA=gcc@4.9 _CC=gcc-4.9 _CXX=g++-4.9
+        - os: osx
+          osx_image: xcode8.3
+          env: COMPILER_FORMULA=gcc@5 _CC=gcc-5 _CXX=g++-5
+        - os: osx
+          osx_image: xcode8.3
+          env: COMPILER_FORMULA=gcc@6 _CC=gcc-6 _CXX=g++-6
+        - os: osx
+          osx_image: xcode8.3
+          env: COMPILER_FORMULA=gcc@7 _CC=gcc-7 _CXX=g++-7
+        # macOS builds (Clang) TODO: Fix 'malloc.h' file not found
+        - os: osx
+          osx_image: xcode8.3
+          env: _CC=clang _CXX=clang++
+        - os: osx
+          osx_image: xcode9.4
+          env: _CC=clang _CXX=clang++
+        - os: osx
+          osx_image: xcode10.1
+          env: _CC=clang _CXX=clang++
+
+# For osx builds, update brew, and install GCC for GCC builds
+before_install:
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update ; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]] && ! [[ -z ${COMPILER_FORMULA+x} ]]; then 
+        brew cask uninstall oclint || true; 
+        brew unlink gcc || true; 
+        brew unlink ${COMPILER_FORMULA} || true; 
+        brew install ${COMPILER_FORMULA}; 
+        brew link ${COMPILER_FORMULA}; 
+      fi
+
+# Run CMake build systme generation in new directory
+# For windows builds, pass Generator and Arch to CMake
+# For non-windows builds, pass compiler names and flags
+before_script:
+    - mkdir ./libhandler-build
+    - cd ./libhandler-build
+    - if [[ "${TRAVIS_OS_NAME}" == "windows" ]]; then 
+          cmake -G "${GENERATOR}" -A ${ARCH} .. ; 
+      else
+          cmake -G "Unix Makefiles" -DCMAKE_C_COMPILER=${_CC} -DCMAKE_CXX_COMPILER=${_CXX} -DCMAKE_C_FLAGS='-std=c99' .. ; 
+      fi
+
+# Actually run the build and unit tests
+# For windows builds, we specify Release. VS generator is unique in that it creates both Release and Debug
+# For non-windows builds, we specify Release. VS generator is unique in that it creates both Release and Debug
+script:
+    - if [[ "${TRAVIS_OS_NAME}" == "windows" ]]; then 
+          cmake --build . --config Release ; 
+      else
+          cmake --build . ;
+      fi
+    - ctest --output-on-failure -V -C Release
+ 

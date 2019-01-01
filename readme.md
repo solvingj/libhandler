@@ -8,6 +8,11 @@ code {
 [TITLE]
 -->
 
+## Build Status
+
+[![Build Status](https://travis-ci.org/solvingj/libhandler.svg)](https://travis-ci.org/solvingj/libhandler)
+
+
 # Overview
 
 Warning: this library is still under active development and the
