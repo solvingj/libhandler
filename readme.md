@@ -10,7 +10,7 @@ code {
 
 ## Build Status
 
-[![Build Status](https://travis-ci.org/solvingj/libhandler.svg)](https://travis-ci.org/solvingj/libhandler)
+[![Build Status](https://travis-ci.com/solvingj/libhandler.svg)](https://travis-ci.com/solvingj/libhandler)
 
 
 # Overview

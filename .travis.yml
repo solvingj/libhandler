@@ -67,8 +67,8 @@ matrix:
           addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-6.0], packages: [clang-6.0, libc++-dev] } }
           env: _CC=clang-6.0 _CXX=clang++-6.0
         - os: linux
-          addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-7], packages: [clang-7.0, libc++-dev] } }
-          env: _CC=clang-7.0 _CXX=clang++-7.0
+          addons: { apt: { sources: [ubuntu-toolchain-r-test, llvm-toolchain-trusty-7], packages: [clang-7, libc++-dev] } }
+          env: _CC=clang-7 _CXX=clang++-7
         # macOS builds (GCC) TODO: Fix 'malloc.h' file not found
         - os: osx
           osx_image: xcode8.3
