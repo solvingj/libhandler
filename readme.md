@@ -175,3 +175,17 @@ Using the Visual Studio IDE:
 Enabled in Visual Studio for x64 builds. You need to put the `libuv` headers
 and binaries in a `libuv` folder under the main `libhandler` folder. Binaries
 for Windows can be found on [`libuv.org`](https://dist.libuv.org/dist/v1.18.0).
+
+
+### Build with CMake
+
+Support has been added for CMake.  To build with CMake using the auto-detected build system and compiler for your platform, use the following steps:   
+- `mkdir build && cd build`  
+- `cmake .. [-DLIBHANDLER_BUILD_TESTING=ON|OFF]`  
+- `cmake --build .`
+
+Refer to the CMake documentation for further assistance in using custom settings.  
+
+A simple example project consuming libhandler using CMake and git-submodules can be found here:   
+- https://github.com/solvingj/libhandler_test
+

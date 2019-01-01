@@ -1,0 +1,16 @@
+#define LH_CCNAME "${LH_CCNAME}"
+#define LH_TARGET "${LH_TARGET}"
+#define LH_ABI_${LH_ABI_ARCH}
+#define ASM_JMPBUF_SIZE ${ASM_JMPBUF_SIZE}
+#cmakedefine HAS_STRNCAT_S
+#cmakedefine HAS_STRERROR_S
+#cmakedefine HAS_MEMCPY_S
+#cmakedefine HAS_MEMMOVE_S
+#cmakedefine HAS_STDBOOL_H
+#cmakedefine HAS_ASMSETJMP
+#cmakedefine HAS_SIGSETJMP
+#cmakedefine HAS__SETJMP
+#cmakedefine HAS_SETJMP
+#cmakedefine HAS_ALLOCA_H
+#cmakedefine HAS__ALLOCA
+#cmakedefine ASM_HAS_EXN_FRAMES
