@@ -55,13 +55,12 @@ add_library(libhandler
 target_include_directories(libhandler 
     PUBLIC 
         inc
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated/inc>
 )
 
-if(BUILD_TESTING)
-    if(LIBHANDLER_BUILD_TESTING)
-        message(STATUS "Adding unit tests")
-        add_subdirectory(test)
-    endif()
+if(LIBHANDLER_BUILD_TESTING)
+    message(STATUS "Adding unit tests")
+    add_subdirectory(test)
 else()
     message(STATUS "Skipping unit tests")
 endif()
