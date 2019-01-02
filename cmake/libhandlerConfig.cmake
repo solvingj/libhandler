@@ -144,6 +144,6 @@ endif()
 #
 configure_file(
     ${PROJECT_SOURCE_DIR}/inc/cenv.h.in 
-    ${PROJECT_SOURCE_DIR}/inc/cenv.h
+    generated/inc/cenv.h
 )
 
