@@ -37,9 +37,6 @@ option(LIBHANDLER_BUILD_TESTING "Enable building of unit tests for libhandler" O
 # - Generating cenv.h based on aforementioned definitions
 include(cmake/libhandlerConfig.cmake)
 
-# Enable CTest functionality for unit tests
-include(CTest)
-
 # Define static library with sources.  Notes:
 # - Headers are listed so IDE's can find them
 # - ASM_SETJMP_FILE will be empty string if not found
@@ -59,8 +56,10 @@ target_include_directories(libhandler
 )
 
 if(LIBHANDLER_BUILD_TESTING)
-    message(STATUS "Adding unit tests")
+    # Enable CTest functionality for unit tests
+    include(CTest)
+    message(STATUS "Adding libhandler unit tests")
     add_subdirectory(test)
 else()
-    message(STATUS "Skipping unit tests")
+    message(STATUS "Skipping libhandler unit tests")
 endif()
